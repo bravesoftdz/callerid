@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.example.callerid"
+    android:versionCode="1"
+    android:versionName="1.0" >
+
+    <uses-sdk
+        android:minSdkVersion="15"
+        android:targetSdkVersion="19" />
+
+    <!-- Display view on top layer -->
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+
+    <!-- Access Internet to lookup caller -->
+    <uses-permission android:name="android.permission.INTERNET" />
+
+    <!-- Read contacts to exclude known callers -->
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
+    <!-- Quit if offline -->
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+
+    <!-- Subscribe to phone state changes -->
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name" >
+
+        <service
+            android:name=".DisplayCallerService"
+            android:enabled="true"
+            android:exported="false"
+            android:label="Caller ID"
+            android:process=":CallerId" />
+
+        <receiver
+            android:name=".PhoneStateReceiver"
+            android:permission="android.permission.READ_PHONE_STATE" >
+            <intent-filter>
+                <action android:name="android.intent.action.PHONE_STATE" />
+            </intent-filter>
+        </receiver>
+    </application>
+
+</manifest>
