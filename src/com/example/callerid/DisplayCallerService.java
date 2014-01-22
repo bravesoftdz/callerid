@@ -8,10 +8,9 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.WindowManager;
-import android.widget.TextView;
 
 public class DisplayCallerService extends Service{
-	private View view;
+	protected View view;
 
     @Override
     public void onCreate() {
@@ -32,16 +31,30 @@ public class DisplayCallerService extends Service{
                 WindowManager.LayoutParams.TYPE_SYSTEM_OVERLAY,
                 WindowManager.LayoutParams.FLAG_WATCH_OUTSIDE_TOUCH,
                 PixelFormat.TRANSLUCENT);
+        
         // TODO move view to top of screen
 		return params;
 	}
 
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
-		// TODO get number from intent and fetch name
+		String phoneNum = getNumber(intent);
+		updateViewWithCallerNumber(phoneNum);
+		// TODO fetch name from number, update view. Hint: view.findViewById(R.id.number)
 		
-		((TextView)view.findViewById(R.id.number)).setText("12345678"); // TODO replace with callers number
 		return START_STICKY;
+	}
+	
+	protected String getNumber(Intent intent){
+		throw new UnsupportedOperationException(); // TODO implement
+	}
+	
+    protected void updateViewWithCallerNumber(String phoneNum){
+    	throw new UnsupportedOperationException(); // TODO implement
+    }
+	
+	protected void updateViewWithCallerName(String name){
+		throw new UnsupportedOperationException(); // TODO implement
 	}
 	
 	/**
